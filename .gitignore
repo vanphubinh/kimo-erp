@@ -1,0 +1,111 @@
+# moon
+.moon/cache
+.moon/docker
+
+# proto
+.prototools.lock
+.proto/tools/
+.proto/temp/
+.proto/cache/
+
+# Rust / Cargo
+**/target/
+**/*.rs.bk
+*.pdb
+
+# Node / pnpm
+node_modules/
+.pnpm-store/
+.pnpm-debug.log*
+npm-debug.log*
+yarn-error.log*
+
+# Frontend build / Vite / TanStack Start / SolidJS
+dist/
+dist-ssr/
+build/
+.output/
+.vinxi/
+.nitro/
+.tanstack/
+.solid/
+.vercel/
+.netlify/
+.wrangler/
+.turbo/
+*.tsbuildinfo
+.vite/
+
+# Env & secrets
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+credentials.json
+secrets/
+
+# Database / local data
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+*.sql.gz
+*.dump
+*.backup
+pgdata/
+postgres-data/
+.pgdata/
+.dump/
+**/data/postgres/
+**/volumes/postgres/
+
+# Docker (keep Dockerfile & compose files tracked)
+docker-compose.override.yml
+compose.override.yml
+.docker/
+docker-data/
+
+# IDE / editors
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json.example
+*.swp
+*.swo
+*~
+.fleet/
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs & temp
+*.log
+logs/
+tmp/
+temp/
+.cache/
+.temp/
+.tmp/
+
+# Coverage / test artifacts
+coverage/
+lcov.info
+*.lcov
+htmlcov/
+.nyc_output/
+playwright-report/
+test-results/
+
+# Misc
+*.local
+.direnv/
+lefthook-local.yml
+*.css.map
+.eslintcache
+.stylelintcache
+.prettiercache
+*.tgz

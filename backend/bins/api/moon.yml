@@ -1,0 +1,28 @@
+language: "rust"
+layer: "application"
+stack: "backend"
+
+env:
+  CARGO_TERM_COLOR: "always"
+
+fileGroups:
+  sources:
+    - "src/**/*"
+    - "Cargo.toml"
+  tests:
+    - "tests/**/*"
+    - "benches/**/*"
+
+tasks:
+  dev:
+    command: "cargo run -p api"
+    preset: "server"
+  build:
+    command: "cargo build -p api"
+    inputs:
+      - "@globs(sources)"
+  test:
+    command: "cargo test -p api"
+    inputs:
+      - "@globs(sources)"
+      - "@globs(tests)"

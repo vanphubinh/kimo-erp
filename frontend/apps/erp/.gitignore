@@ -1,0 +1,7 @@
+# Local Vite / Start artifacts (root .gitignore covers most of these too)
+node_modules
+dist
+.output
+.vinxi
+.tanstack
+*.local

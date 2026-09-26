@@ -1,0 +1,34 @@
+language: 'typescript'
+layer: 'application'
+stack: 'frontend'
+
+tasks:
+  install:
+    command: 'pnpm install'
+    inputs:
+      - 'package.json'
+      - 'pnpm-workspace.yaml'
+      - 'pnpm-lock.yaml'
+      - 'oxlint.config.ts'
+      - 'oxfmt.config.ts'
+      - 'apps/*/package.json'
+      - 'packages/*/package.json'
+  check:
+    description: 'Format check + lint for the frontend workspace'
+    deps:
+      - 'fmt'
+      - 'lint'
+  fmt:
+    command: 'pnpm fmt:check'
+    inputs:
+      - 'oxfmt.config.ts'
+      - 'apps/**/*.{ts,tsx,js,jsx,css,json,md}'
+      - 'packages/**/*.{ts,tsx,js,jsx,css,json,md}'
+      - 'oxlint.config.ts'
+      - 'package.json'
+  lint:
+    command: 'pnpm lint'
+    inputs:
+      - 'oxlint.config.ts'
+      - 'apps/**/*.{ts,tsx,js,jsx}'
+      - 'packages/**/*.{ts,tsx,js,jsx}'

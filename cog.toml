@@ -1,0 +1,43 @@
+# Cocogitto — Conventional Commits + monorepo versioning
+# https://docs.cocogitto.io/guide/monorepo.html
+#
+# Git hooks are owned by lefthook (see lefthook.yml).
+# Do NOT run `cog install-hook` — it would conflict with lefthook.
+# Lefthook commit-msg calls: cog verify --file <msg>
+#
+# Packages version independently (tags: backend-x.y.z, frontend-x.y.z).
+# Add [monorepo.packages.mobile] when that tree exists.
+
+ignore_merge_commits = true
+ignore_fixup_commits = true
+from_latest_tag = true
+
+# Independent package tags only — no single global product tag.
+generate_mono_repository_global_tag = false
+generate_mono_repository_package_tags = true
+monorepo_version_separator = "-"
+
+# Allowed scopes (optional in messages). Add "mobile" later.
+scopes = ["backend", "frontend", "repo"]
+
+[changelog]
+path = "CHANGELOG.md"
+template = "remote"
+
+[monorepo.packages.backend]
+path = "backend"
+changelog_path = "CHANGELOG.md"
+public_api = true
+bump_order = 1
+pre_bump_hooks = [
+  "bash ../scripts/bump-backend-version.sh {{version}}",
+]
+
+[monorepo.packages.frontend]
+path = "frontend"
+changelog_path = "CHANGELOG.md"
+public_api = true
+bump_order = 2
+pre_bump_hooks = [
+  "bash ../scripts/bump-frontend-version.sh {{version}}",
+]

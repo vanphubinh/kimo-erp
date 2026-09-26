@@ -1,0 +1,47 @@
+# Workspace-level Cargo tasks (run from backend/, where Cargo.lock lives).
+language: "rust"
+layer: "application"
+stack: "backend"
+
+env:
+  CARGO_TERM_COLOR: "always"
+
+fileGroups:
+  sources:
+    - "bins/*/src/**/*"
+    - "bins/*/Cargo.toml"
+    - "crates/*/src/**/*"
+    - "crates/*/Cargo.toml"
+    - "Cargo.toml"
+    - "Cargo.lock"
+  tests:
+    - "bins/*/tests/**/*"
+    - "crates/*/tests/**/*"
+    - "bins/*/benches/**/*"
+    - "crates/*/benches/**/*"
+
+tasks:
+  check:
+    description: "Format check + clippy for the Cargo workspace"
+    deps:
+      - "fmt"
+      - "lint"
+  fmt:
+    command: "cargo fmt --all -- --check"
+    inputs:
+      - "@globs(sources)"
+      - "@globs(tests)"
+  lint:
+    command: "cargo clippy --workspace --all-targets -- -D warnings"
+    inputs:
+      - "@globs(sources)"
+      - "@globs(tests)"
+  test:
+    command: "cargo test --workspace"
+    inputs:
+      - "@globs(sources)"
+      - "@globs(tests)"
+  build:
+    command: "cargo build --workspace"
+    inputs:
+      - "@globs(sources)"

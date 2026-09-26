@@ -1,0 +1,20 @@
+{
+  "name": "frontend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm --filter erp dev",
+    "fmt": "oxfmt",
+    "fmt:check": "oxfmt --check",
+    "lint": "oxlint apps packages",
+    "test": "pnpm -r --if-present test",
+    "typecheck": "pnpm -r --if-present typecheck"
+  },
+  "devDependencies": {
+    "eslint-plugin-solid": "~0.18.0",
+    "oxfmt": "~0.70.0",
+    "oxlint": "~1.85.0",
+    "typescript": "~5.9.2"
+  },
+  "packageManager": "pnpm@12.3.4"
+}

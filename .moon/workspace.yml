@@ -1,0 +1,16 @@
+# Configures all projects within the workspace to create a project graph.
+# Project IDs come from folder names — keep leaf names unique across bins/, crates/, apps/, and packages/.
+projects:
+  globs:
+    - "backend/bins/*"
+    - "frontend/apps/*"
+    # Uncomment when the first shared crate / package exists:
+    # - "backend/crates/*"
+    # - "frontend/packages/*"
+  sources:
+    backend: "backend"
+    frontend: "frontend"
+
+vcs:
+  defaultBranch: "main"
+  provider: "github"

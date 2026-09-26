@@ -1,0 +1,61 @@
+# https://lefthook.dev/configuration/
+# After clone: proto use && lefthook install
+#
+# Format/lint staged files in the affected area; skip jobs with no matches.
+# Commit messages are validated by Cocogitto (see cog.toml).
+# Do NOT run `cog install-hook` — lefthook owns the hooks.
+
+pre-commit:
+  parallel: true
+  jobs:
+    - name: frontend-fmt
+      root: frontend/
+      glob:
+        - frontend/*.{js,jsx,ts,tsx,css,json,md}
+        - frontend/**/*.{js,jsx,ts,tsx,css,json,md}
+      exclude:
+        - "**/node_modules/**"
+        - "**/dist/**"
+        - "**/*.gen.*"
+      run: pnpm exec oxfmt {staged_files}
+      stage_fixed: true
+
+    - name: frontend-lint
+      root: frontend/
+      glob:
+        - frontend/*.{js,jsx,ts,tsx}
+        - frontend/**/*.{js,jsx,ts,tsx}
+      exclude:
+        - "**/node_modules/**"
+        - "**/dist/**"
+        - "**/*.gen.*"
+      run: pnpm exec oxlint {staged_files}
+
+    - name: backend-fmt
+      root: backend/
+      glob:
+        - backend/*.rs
+        - backend/**/*.rs
+      exclude:
+        - "**/target/**"
+      run: rustfmt --edition 2024 {staged_files}
+      stage_fixed: true
+
+    - name: backend-clippy
+      root: backend/
+      glob:
+        - backend/*.rs
+        - backend/**/*.rs
+        - backend/**/Cargo.toml
+      exclude:
+        - "**/target/**"
+      run: cargo clippy --workspace --all-targets -- -D warnings
+
+commit-msg:
+  jobs:
+    - name: conventional
+      # Cocogitto validates Conventional Commits (see cog.toml).
+      # Ensure cargo-installed `cog` is visible in hook PATH.
+      run: |
+        export PATH="${CARGO_HOME:-$HOME/.cargo}/bin:$PATH"
+        cog verify --file {1}
